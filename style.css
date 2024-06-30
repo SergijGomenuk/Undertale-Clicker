@@ -1,0 +1,390 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+    font-family: "Unkempt", cursive;
+    font-weight: 1000;
+    font-style: normal;
+}
+
+.main-background{
+    background-repeat: no-repeat;
+    background-image: url(/images/ruins-background.webp);
+    background-size: cover;
+}
+
+.battle-background{
+    background-image: url(images/battle-background.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container{
+	max-width: 1920px;
+	padding: 0 10px;
+	margin: 0 auto;
+}
+
+.header{
+    height: 100px;
+    display: flex;
+}
+
+.sound-img{
+    width: 100%;
+    padding: 10px;
+}
+
+.sound-btn{
+    display: flex;
+    width: 8%;
+    border: 0px;
+    border-radius: 100px;
+    margin-top: 1%;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.back-btn{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    border: 0px;
+    width: 20%;
+    border-radius: 10px;
+    margin-top: 1%;
+    margin-left: 10px;
+    padding: 2%;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.sound-btn:hover, .back-btn:hover{
+    background-color: wheat;
+    transition: 0.4s;
+    scale: 1.1;
+}
+
+
+.undertale{
+    color: red;
+    animation-name: changeColor;
+    animation-duration: 10s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes changeColor{
+    0%{}
+    14%{
+        color: orange;
+    } 28%{
+        color: yellow;
+    } 44%{
+        color: green;
+    } 58%{
+        color: aqua;
+    } 72%{
+        color: blue;
+    } 86%{
+        color: blueviolet;
+    }
+}
+
+@keyframes changeBorder{
+    0%{}
+    14%{
+        border: 4px solid orange;
+    } 28%{
+        border: 4px solid yellow;
+    } 44%{
+        border: 4px solid green;
+    } 58%{
+        border: 4px solid aqua;
+    } 72%{
+        border: 4px solid blue;
+    } 86%{
+        border: 4px solid blueviolet;
+    }
+}
+
+
+
+.main-menu{
+    display: flex;
+    margin-top: 100px;
+}
+
+.name{
+    font-size: 40px;
+    margin-bottom: 100px;
+}
+
+.clicker{
+    color: white;
+}
+
+.main-btns button{
+    background-color: #D9D9D9;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.main-btns a{
+    text-decoration: none;
+}
+
+.main-btns button:hover{
+    transition: 0.5s;
+    border-radius: 20px;
+    background-color: wheat;
+    color: red;
+    animation-name: changeBorder, changeColor;
+    animation-duration: 6s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+}
+
+.boss-choose-table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.boss-choose-table img{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+}
+
+
+.boss-choose-table td{
+    width: 10%;
+}
+
+.boss-choose-table img{
+    cursor: pointer;
+}
+
+@keyframes skaling{
+    0%{
+        scale: 1;
+    }25%{
+        scale: 1.1;
+    }50%{
+        scale: 1;
+    }75%{
+        scale: 1.1;
+    }100%{
+        scale: 1;
+    }
+}
+
+@keyframes icecapHp{
+    0%{
+        background-color: cyan;
+    }25%{
+        background-color: aqua;
+    }50%{
+        background-color: blue;
+    }75%{
+        background-color: aqua;
+    }100%{
+        background-color: cyan;
+    }
+}
+
+.boss-choose-table img:hover{
+    filter: brightness(0.8);
+    transition: 0.6s;
+    animation-name: skaling;
+    animation-duration: 2s;
+    animation-delay: 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.swiper {
+    width: 90%;
+  }
+
+/*Battle*/
+
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.enemy{
+    width: 14%;
+    margin-top: 4%;
+    cursor: pointer;
+}
+
+.enemy-hp-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    opacity: 0;
+}
+
+.hp{
+    color: white;
+}
+
+
+.enemy-hp-bar, .player-hp-bar{
+    background-color: yellow;
+    display: flex;
+    width: 100px;
+    height: 25px;
+}
+
+.icecap-hp{
+    background-color: cyan;
+    display: flex;
+    width: 100px;
+    height: 25px;
+    animation-name: icecapHp;
+    animation-duration: 4s;
+    animation-delay: 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.player{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 13%;
+}
+
+#moldsmal-player{
+    position: fixed;
+    background-color: black;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0;
+}
+
+.bandage-timer{
+    color: red;
+}
+
+.weapons img, .items img{
+    height: 70px;
+    border: 1px solid orange;
+}
+
+.player button{
+    background-color: black;
+    border: 0;
+}
+
+.weapons, .items{
+    cursor: pointer;
+    flex-direction: row;
+    display: none;
+    position: relative ;
+}
+
+.item-div{
+    display: flex;
+    color:  red;
+    flex-direction: column;
+}
+
+.item-timer{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.attack-btn, .item-btn{
+    display: inline-flex;
+    cursor: pointer;
+    position: static;
+}
+
+.player button:hover{
+filter: brightness(1.4);
+}
+
+.player button[disabled] {
+    filter: brightness(0.5);
+    cursor: not-allowed;
+}
+
+
+#descr{
+    color: yellow;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.item{
+    display: flex;
+}
+
+.php{
+    width: 120px;
+    overflow: hidden;
+}
+
+.napstablook{
+    width: 20%;
+}
+
+.astigmatism{
+    cursor: default;
+}
+
+.ice{
+    width: 15%;
+    display: none;
+}
+
+
+.snowdrake-clone, .snowdrake{
+width: 200px;
+margin-top: 4%;
+cursor: pointer;
+}
+
+.snowdrake-clone{
+    display: none;
+}
+
+.icecap-div{
+    gap: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.snowdrake-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.currDmgCount{
+    display: flex;
+    color: yellowgreen;
+    justify-content: center;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.moldsmal-battle{
+    display: flex;
+    width: 5%;
+}

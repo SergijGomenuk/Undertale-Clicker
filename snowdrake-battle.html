@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowdrake</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+
+<body class="battle-background">
+    <!--Header-->
+    <header>
+        <div class="container">
+            <a href="boss-choose.html">
+                <button class="back-btn">
+                    Choose boss
+                </button>
+            </a>
+            <button class="sound-btn">
+                <img class="sound-img" src="images/sound-off.png">
+            </button>
+        </div>
+    </header>
+    <!--audio-->
+    <audio class="main-theme" loop src="sound/Undertale OST - Enemy Approaching.mp3">
+        <source src="sound/Undertale OST - Enemy Approaching.mp3">
+    </audio>
+    <!--Main-->
+    <main>
+        <section class="boss-fight">
+            <div class="container">
+                <div class="center">
+                    <div class="enemy-hp-container">
+                        <span id="enemy-hp" class="hp">HP</span>
+                        <div class="enemy-hp-bar"></div>
+                    </div>
+                    <div class="snowdrake-div">
+                        <img class="snowdrake-clone" id="sdClone1" src="images/snowdrake.webp">
+                        <img class="enemy snowdrake" src="images/snowdrake.webp">
+                        <img class="snowdrake-clone" id="sdClone2" src="images/snowdrake.webp">
+                        </div>
+
+                    <!--Player-->
+                    <div class="player">
+                        <div class="attack">
+                            <img class="attack-btn" src="images/attack-btn.webp">
+                            <div class="weapons">
+                                <button id="knife-btn"> <img class="knife" onmouseover="showDescr(0)"
+                                        onmouseout="hideDescr(0)" src="images/Knife_item.webp"> </button>
+                                <button id="gun-btn"> <img class="gun" onmouseover="showDescr(1)"
+                                        onmouseout="hideDescr(1)" src="images/Empty_Gun_item.webp"></button>
+                                <button id="grenade-btn"><img class="grenade" onmouseover="showDescr(2)"
+                                        onmouseout="hideDescr(2)" src="images/grenade.webp"></button>
+                            </div>
+                        </div>
+                        <div class="php">
+                        <span id="player-hp" class="hp"></span>
+                        <div class="player-hp-bar"></div>
+                        <span class="currDmgCount">DMG:</span>
+                        </div>
+                        <div class="item">
+                            <img class="item-btn" src="images/item-btn.webp">
+                            <div class="items">
+                                <div class="item-div">
+                                    <span id="bandage" class="item-timer"></span>
+                                    <button id="bandage-btn">
+                                        <img class="bandage" onmouseover="showDescr(3)" onmouseout="hideDescr(3)"
+                                            src="images/bandage.webp">
+                                    </button>
+                                </div>
+                                <div class="item-div">
+                                    <span id="potion" class="item-timer"></span>
+                                    <button id="potion-btn">
+                                        <img class="potion" onmouseover="showDescr(4)" onmouseout="hideDescr(4)"
+                                            src="images/healing_potion.png">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="descr"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+<script src="snowdrake-battle.js"></script>
+</html>
