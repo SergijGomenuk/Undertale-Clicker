@@ -1,6 +1,6 @@
-let sound_btn = document.querySelector(".sound-btn");
-let main_ost = document.querySelector('.main-theme');
-let sound_img = document.querySelector('.sound-img');
+let audio = document.querySelector('.main-theme');
+let soundBtn = document.querySelector('.sound-btn');
+let soundImg = document.querySelector('.sound-img');
 let play_btn = document.querySelector('.play-btn');
 let ice1 = document.querySelector('#ice1')
 ice1.disabled = true
@@ -41,16 +41,45 @@ let ehp = document.querySelector('#enemy-hp')
 
 ///Music///
 
-document.querySelector('.sound-btn').onclick = function () {
-    if (main_ost.paused == true) {
-        main_ost.play()
-        sound_img.src = "images/sound.png"
-    }
-    else {
-        main_ost.pause()
-        sound_img.src = "images/sound-off.png"
-    }
+// Функція для оновлення іконки звуку
+function updateSoundIcon(isPlaying) {
+  if (soundImg) {
+    soundImg.src = isPlaying ? 'images/sound.png' : 'images/sound-off.png';
+  }
 }
+
+// При завантаженні сторінки — читаємо стан з localStorage
+window.addEventListener('load', () => {
+  let savedState = localStorage.getItem('soundState');
+
+  if (audio) {
+    if (savedState === 'on') {
+      audio.play().then(() => {
+        updateSoundIcon(true);
+      }).catch(() => {
+        updateSoundIcon(false);
+      });
+    } else {
+      updateSoundIcon(false);
+    }
+  }
+});
+
+// Обробка кліку по кнопці звуку
+if (soundBtn && audio) {
+  soundBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      updateSoundIcon(true);
+      localStorage.setItem('soundState', 'on');
+    } else {
+      audio.pause();
+      updateSoundIcon(false);
+      localStorage.setItem('soundState', 'off');
+    }
+  });
+}
+
 
 
 ///Fight buttons///
