@@ -81,7 +81,7 @@ function updateSoundIcon(isPlaying) {
 
 // Масив з ворогами //
 let enemies = [
-    { element: vegetoid, health: 35, enemyDmg: 4 },
+    { element: vegetoid, health: 60, enemyDmg: 4 },
 ];
 
 
@@ -138,7 +138,7 @@ let clickDone = false;
 function restoreEnemy() {
     enemies.forEach(enemy => {
         if (enemy.health <= 40) {
-            enemy.health += 5;
+            enemy.health += 10;
             enemy_hp.style.width = `${enemy.health}%`;
             ehp.innerHTML = 'HP ' + enemy.health;
         } if (enemy.health > 40) {

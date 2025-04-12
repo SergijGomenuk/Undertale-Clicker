@@ -81,7 +81,7 @@ function updateSoundIcon(isPlaying) {
 
 // Масив з ворогами //
 let enemies = [
-    { element: napstablook, health: 70, enemyDmg: 16, attackSpd: 5500},
+    { element: napstablook, health: 160, enemyDmg: 20, attackSpd: 5500},
 ];
 
     let attackSpeed = enemies[0].attackSpd

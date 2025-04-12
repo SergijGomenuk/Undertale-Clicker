@@ -149,7 +149,9 @@ function upgrade() {
         if (!upgrade1 && enemy.health <= 25) {
             bandage_btn.disabled = false;
             knife_btn.disabled = false;
+            enemy.health = 200;
             currEnemyDmg = 10;
+            enemy.attackSpeed = 1000;
             anime({
                 targets: moldsmal,
                 opacity: 0, 

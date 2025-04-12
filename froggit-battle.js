@@ -75,7 +75,7 @@ soundBtn.addEventListener('click', () => {
 
 // Масив з ворогами //
 let enemies = [
-    { element: froggit, health: 20, enemyDmg: 2, enemySPD: 1500 },
+    { element: froggit, health: 40, enemyDmg: 4, enemySPD: 1200 },
 ];
 
 

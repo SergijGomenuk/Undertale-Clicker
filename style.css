@@ -15,10 +15,19 @@
     background-size: cover;
 }
 
-.battle-background{
-    background-image: url(images/battle-background.webp);
+.battle-background, .battle-background-snow{
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.battle-background{
+    background-image: url(images/battle-background.webp);
+}
+
+.battle-background-snow{
+    background-image: url(images/snowdin_battle_bg.png);
+    background-color: black;
+    max-height: 1080px;
 }
 
 .container{

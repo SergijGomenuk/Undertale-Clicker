@@ -82,7 +82,7 @@ function updateSoundIcon(isPlaying) {
 
 // Масив з ворогами //
 let enemies = [
-    { element: whimsun, health: 40, enemyDmg: 2, attackSpd: 1200 },
+    { element: whimsun, health: 60, enemyDmg: 3, attackSpd: 800 },
 ];
 
 let attackSpeed = enemies[0].attackSpd
