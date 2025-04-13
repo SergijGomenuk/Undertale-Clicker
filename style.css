@@ -25,7 +25,7 @@
 }
 
 .battle-background-snow{
-    background-image: url(images/snowdin_battle_bg.png);
+    background-image: url(images/battle-background-snow.png);
     background-color: black;
     max-height: 1080px;
 }
@@ -439,3 +439,11 @@ cursor: pointer;
     text-decoration: none;
     cursor: pointer;
 }
+
+
+
+
+.bright-hit{
+    filter: brightness(1.4);
+    transition: filter 0.1s;
+  }

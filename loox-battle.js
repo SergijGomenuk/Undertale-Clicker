@@ -126,6 +126,12 @@ let currDmg = 1
 function attackEnemy(enemy) {
     currDmgCount.innerHTML = "DMG: " + currDmg
     enemy_hp_container.style.opacity = '100';
+
+    enemy.element.classList.add('bright-hit');
+    setTimeout(() => {
+        enemy.element.classList.remove('bright-hit')
+    }, 100);
+
     if (enemy.health > 0) {
         enemy.health -= currDmg;
         enemy_hp.style.width = `${enemy.health}%`;

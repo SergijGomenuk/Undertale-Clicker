@@ -132,6 +132,12 @@ let currDmg = 1
 function attackEnemy(enemy) {
     enemy_hp_container.style.opacity = '100';
     currDmgCount.innerHTML = "DMG: " + currDmg
+
+    enemy.element.classList.add('bright-hit');
+    setTimeout(() => {
+        enemy.element.classList.remove('bright-hit')
+    }, 100);
+
     if (enemy.health > 0) {
 
         enemy.health -= currDmg;
@@ -178,10 +184,8 @@ anime({
 });
 
 
-//Upgrade//
-let upgrade1 = false;
-let upgrade2 = false;
-let upgrade3 = false;
+
+
 
 function ice1Spawn() {
     ice1.style.display = "flex"
@@ -196,6 +200,10 @@ setInterval(ice1Spawn, 10000);
 setInterval(ice1Spawn, 20000);
 
 //Upgrade//
+let upgrade1 = false;
+let upgrade2 = false;
+let upgrade3 = false;
+
 function upgrade() {
     enemies.forEach(enemy => {
         if (!upgrade1 && enemy.health <= 15) {

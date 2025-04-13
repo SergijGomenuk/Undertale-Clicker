@@ -4,7 +4,7 @@ let soundImg = document.querySelector('.sound-img');
 let play_btn = document.querySelector('.play-btn');
 
 let currDmgCount = document.querySelector('.currDmgCount')
-let napstablook = document.querySelector('.napstablook')
+let dummy = document.querySelector('.dummy')
 let enemy_hp = document.querySelector('.enemy-hp-bar')
 let enemy_hp_container = document.querySelector('.enemy-hp-container')
 let attack_btn = document.querySelector('.attack-btn')
@@ -16,7 +16,6 @@ let gun_wpn = document.querySelector('.gun')
 let grenade_wpn = document.querySelector('.grenade')
 let bandage_itm = document.querySelector('.bandage')
 let potion_itm = document.querySelector('.potion')
-
 let knife_btn = document.querySelector('#knife-btn');
 knife_btn.disabled = true;
 
@@ -32,78 +31,54 @@ bandage_btn.disabled = true;
 let potion_btn = document.querySelector('#potion-btn');
 potion_btn.disabled = true;
 
+
 let ehp = document.querySelector('#enemy-hp')
 
-///Music///
 
-// Функція для оновлення іконки звуку
+
+// Функція для оновлення іконки
 function updateSoundIcon(isPlaying) {
-    if (soundImg) {
-      soundImg.src = isPlaying ? 'images/sound.png' : 'images/sound-off.png';
-    }
-  }
-  
-  // При завантаженні сторінки — читаємо стан з localStorage
-  window.addEventListener('load', () => {
-    let savedState = localStorage.getItem('soundState');
-  
-    if (audio) {
-      if (savedState === 'on') {
-        audio.play().then(() => {
-          updateSoundIcon(true);
-        }).catch(() => {
-          updateSoundIcon(false);
-        });
-      } else {
-        updateSoundIcon(false);
-      }
-    }
-  });
-  
-  // Обробка кліку по кнопці звуку
-  if (soundBtn && audio) {
-    soundBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        updateSoundIcon(true);
-        localStorage.setItem('soundState', 'on');
-      } else {
-        audio.pause();
-        updateSoundIcon(false);
-        localStorage.setItem('soundState', 'off');
-      }
-    });
-  }
+  soundImg.src = isPlaying ? 'images/sound.png' : 'images/sound-off.png';
+}
 
+// При завантаженні сторінки — читаємо стан з localStorage
+window.addEventListener('load', () => {
+  const savedState = localStorage.getItem('soundState');
+
+  if (savedState === 'on') {
+    audio.play().then(() => {
+      updateSoundIcon(true);
+    }).catch(() => {
+      // Якщо браузер не дозволяє — нічого, кнопка зможе ввімкнути
+      updateSoundIcon(false);
+    });
+  } else {
+    updateSoundIcon(false);
+  }
+});
+
+// Обробка кліку по кнопці
+soundBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    updateSoundIcon(true);
+    localStorage.setItem('soundState', 'on');
+  } else {
+    audio.pause();
+    updateSoundIcon(false);
+    localStorage.setItem('soundState', 'off');
+  }
+});
 
 ///Fight buttons///
 
 
 // Масив з ворогами //
 let enemies = [
-    { element: napstablook, health: 160, enemyDmg: 20, attackSpd: 5500},
+    { element: dummy, health: 999, enemyDmg: 30, enemySPD: 10000 },
 ];
 
-    let attackSpeed = enemies[0].attackSpd
-/// Віднімання здоров'я гравця ///
-let counter = 100
-function attackPlayer() {
-    let currEnemyDmg = enemies[0].enemyDmg
 
-    if (counter > 0) {
-        setTimeout(function () {
-            counter -= currEnemyDmg;
-
-            player_hp.style.width = `${counter}px`;
-            hp.innerHTML = 'HP ' + counter;
-
-            if (counter <= 0) {
-                window.location.href = "boss-choose.html";
-                alert('You lose');
-            }
-        }, 1000);
-    }
-}
 
 // Додавання обробника подій для кожного ворога //
 enemies.forEach(enemy => {
@@ -114,15 +89,32 @@ enemies.forEach(enemy => {
 });
 
 
+
 /// Життя гравця ///
+let counter = 100;
 let hp = document.querySelector('#player-hp');
 let player_hp = document.querySelector('.player-hp-bar');
 
+/// Віднімання здоров'я гравця ///
+function attackPlayer() {
+    if (counter > 0) {
+        counter -= enemies[0].enemyDmg;
+        player_hp.style.width = `${counter}%`;
+        hp.innerHTML = 'HP ' + counter;
 
+        if (counter <= 0) {
+            window.location.href = "boss-choose.html";
+            alert('You lose');
+        }
+    }
+}
 
 let currDmg = 1
 
+
 // Функція атаки ворога //
+let clickDone = false; 
+
 function attackEnemy(enemy) {
     enemy_hp_container.style.opacity = '100';
     currDmgCount.innerHTML = "DMG: " + currDmg
@@ -141,100 +133,19 @@ function attackEnemy(enemy) {
             window.location.href = "boss-choose.html";
             alert("You win");
         }
+
+        if (!clickDone && enemy.health <= 10) {
+            knife_btn.disabled = false;
+            bandage_btn.disabled = false;
+            clickDone = true;
+        }
     }
 }
 
-
-//Анімація//
-anime({
-    targets: '.napstablook',
-    keyframes: [
-      {translateX: 100},
-      {translateX: 0},
-      {translateX: -100},
-      {translateX: 0},
-    ],
-    duration: 10000,
-    easing: 'easeOutElastic(1, .8)',
-    loop: true
-  });
-
-
-  
-// Хілл ворогів //
-let maxEnemyHp = 70
-function restoreEnemy() {
-    enemies.forEach(enemy => {
-        if (enemy.health <= maxEnemyHp) {
-            enemy.health += 10;
-            enemy_hp.style.width = `${enemy.health}%`;
-            ehp.innerHTML = 'HP ' + enemy.health;
-        } if (enemy.health > maxEnemyHp) {
-            enemy.health = maxEnemyHp;
-            enemy_hp.style.width = `${enemy.health}%`;
-            ehp.innerHTML = 'HP ' + enemy.health;
-        } 
-    });
-}
-
-
-//Прозорість//
-function lowHealth(){
-    enemies.forEach(enemy => {
-        if(enemy.health <= 60){
-            napstablook.style.opacity = '90%'
-        } 
-        if(enemy.health <= 55){
-            napstablook.style.opacity = '80%'
-        }
-        if(enemy.health <= 50){
-            napstablook.style.opacity = '70%'
-        }
-        if(enemy.health <= 45){
-            napstablook.style.opacity = '65%'
-        }
-        if(enemy.health <= 40){
-            napstablook.style.opacity = '50%'
-        }
-        if(enemy.health <= 35){
-            napstablook.style.opacity = '40%'
-        }
-        if(enemy.health <= 30){
-            napstablook.style.opacity = '30%'
-        }
-        if(enemy.health <= 20){
-            napstablook.style.opacity = '10%'
-        }
-        if(enemy.health <= 10){
-            napstablook.style.opacity = '5%'
-        }
-    })
-}
-
-let upgrade1 = false;
-let upgrade2 = false;
-function upgrade() {
-    enemies.forEach(enemy => {
-        if (!upgrade1 && enemy.health <= 50) {
-            knife_btn.disabled = false;
-            bandage_btn.disabled = false;
-            upgrade1 = true;
-        }
-        if (!upgrade2 && enemy.health <= 15) {
-            gun_btn.disabled = false;
-            upgrade2 = true;
-        }
-    });
-}
-
-
-setInterval(lowHealth, 600)
-setInterval(upgrade, 1000);
-setInterval(restoreEnemy, 10000);
-
 // Iнтервал для швидкості атаки ворогів
-let enemyIntervalId = setInterval(attackPlayer, attackSpeed);
-
+let enemyIntervalId = setInterval(() => {
+    attackPlayer(enemies[0]);
+}, enemies[0].enemySPD);
 
 
 /// Ліміт життя гравця ///
@@ -244,7 +155,7 @@ if (counter > 100) {
     player_hp.style.width = counterWidth + 'px';
 }
 
-/// Предмети ///
+
 
 
 
@@ -293,7 +204,7 @@ potion_btn.addEventListener('click', function () {
     potion_btn.disabled = true;
 
     setTimeout(function () {
-       potion_btn.disabled = false;
+        potion_btn.disabled = false;
         potion_timer.innerHTML = '';
     }, 20000);
 
@@ -323,25 +234,27 @@ potion_btn.addEventListener('click', function () {
     }, 1000);
 });
 
-//Кнопка атаки//
+
+
+//Attack btn//
 attack_btn.addEventListener('click', function () {
     weapons.style.display = 'flex'
     attack_btn.style.display = "none"
-    attack_btn.style.position = "absolute"
 })
 
-//Кнопка предметів//
+//Item btn//
 item_btn.addEventListener('click', function () {
     items.style.display = 'flex'
     item_btn.style.display = 'none'
-    item_btn.style.position = "absolute"
 })
 
 
 
 
-// Дмг зброї //
-knife_btn.addEventListener('click', function () {
+
+// Додавання обробників подій для кожної зброї //
+//knife//
+knife_wpn.addEventListener('click', function () {
     currDmgCount.innerHTML = "DMG: " + currDmg
     currDmg = 5
     if (currDmg = 5) {
@@ -351,7 +264,8 @@ knife_btn.addEventListener('click', function () {
     }
 });
 
-gun_btn.addEventListener('click', function () {
+//gun//
+gun_wpn.addEventListener('click', function () {
     currDmgCount.innerHTML = "DMG: " + currDmg
     currDmg = 10
     if (currDmg = 10) {
@@ -360,8 +274,8 @@ gun_btn.addEventListener('click', function () {
         grenade_wpn.style.border = "1px solid orange"
     }
 });
-
-grenade_btn.addEventListener('click', function () {
+//grenade//
+grenade_wpn.addEventListener('click', function () {
     currDmgCount.innerHTML = "DMG: " + currDmg
     if (currDmg = 20) {
         grenade_wpn.style.border = "4px solid yellow"
@@ -371,13 +285,15 @@ grenade_btn.addEventListener('click', function () {
 });
 
 
+//Масив описів//
 let item_descr = [
-    "5 dmg",
-    "10 dmg",
-    "20 dmg",
+    "5 Dmg",
+    "10 Dmg",
+    "20 Dmg",
     "Heal 20 HP",
     "Heal 40 HP"
 ];
+
 
 //Опис предметів//
 let descr = document.querySelector('#descr');
@@ -390,3 +306,43 @@ function showDescr(index) {
 function hideDescr() {
     descr.textContent = '';
 }
+
+//Upgrade//
+let upgrade1 = false;
+let upgrade2 = false;
+let upgrade3 = false;
+
+function upgrade() {
+    enemies.forEach(enemy => {
+        if (!upgrade1 && enemy.health <= 900) {
+            enemy_hp.style.width = `${enemy.health}%`;
+            ehp.innerHTML = 'HP ' + enemy.health;
+            bandage_btn.disabled = false;
+            knife_btn.disabled = false;
+            upgrade1 = true;
+        }
+        if (!upgrade2 && enemy.health <= 600) {
+            enemy_hp.style.width = `${enemy.health}%`;
+            ehp.innerHTML = 'HP ' + enemy.health;
+            gun_btn.disabled = false;
+            upgrade2 = true;
+        }
+        if (!upgrade3 && enemy.health <= 200) {
+            enemy_hp.style.width = `${enemy.health}%`;
+            ehp.innerHTML = 'HP ' + enemy.health;
+            grenade_btn.disabled = false;
+            potion_btn.disabled = false;
+            enemy.health = 999;
+            dummy.style.border = 'solid green 10px'
+            dummy.style.scale = '1.4'
+            setTimeout(() => {
+                dummy.style.border = 'none'  
+                dummy.style.scale = '1'
+            }, 200);
+            upgrade3 = true;
+        }
+    })
+}
+
+
+setInterval(upgrade, 100);
